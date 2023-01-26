@@ -1,18 +1,49 @@
 ﻿@page "/counter"
 
-<PageTitle>Counter</PageTitle>
+<PageTitle>Todo</PageTitle>
 
-<h1>Counter</h1>
-
-<p role="status">Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-
-@code {
-    private int currentCount = 0;
-
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
+@if (_isLoggedIn == false)
+{
+    <h1 class="text-danger">Please Log In</h1>
 }
+else
+{
+    <h1>ToDo List</h1>
+    @if (string.IsNullOrEmpty(errorMessage) == false)
+    {
+        <div class="h3 text-danger">
+            @errorMessage
+        </div>
+    }
+
+    <button class="btn btn-primary" @onclick="FetchTodos">Get Todo List</button>
+    <div class="my-4">
+        @if (Todos is not null)
+        {
+            @if(Todos.Count == 0)
+            {
+                <div class="h2"> 
+                    List is Empty
+                </div>
+            }
+            @foreach (var t in Todos)
+            {
+                if (t.IsComplete)
+                {
+                    <div class="h2">
+                        @t.Task (Completed)
+                    </div>
+                }
+                else
+                {
+                    <div class="h2">
+                        @t.Task
+                        <button class="btn btn-sm btn-primary" @onclick ="(() => CompleteTodo(t))">Mark as completed</button>
+                    </div>
+                }
+            }
+        }
+    </div>
+}
+
+
