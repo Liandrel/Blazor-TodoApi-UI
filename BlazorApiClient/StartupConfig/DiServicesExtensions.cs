@@ -1,4 +1,6 @@
-﻿namespace BlazorApiClient.StartupConfig;
+﻿using BlazorApiClient.Models;
+
+namespace BlazorApiClient.StartupConfig;
 
 public static class DIServicesExtensions
 {
@@ -6,6 +8,11 @@ public static class DIServicesExtensions
     {
         builder.Services.AddRazorPages();
         builder.Services.AddServerSideBlazor();
+    }
+
+    public static void AddCustomServices(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddScoped<TokenModel>();
     }
 
     public static void AddHttpClientServices(this WebApplicationBuilder builder)

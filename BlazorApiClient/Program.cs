@@ -3,6 +3,7 @@ using BlazorApiClient.StartupConfig;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddStandardServices();
+builder.AddCustomServices();
 builder.AddHttpClientServices();
 
 
